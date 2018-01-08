@@ -1,0 +1,60 @@
+<nav class="navbar navbar-dark navbar-expand-lg bg-primary">
+  <% if !logged_in? %>
+    <%= link_to 'EZQuote', root_path, class: "navbar-brand" %>
+  <% else %>
+    <%= link_to 'EZQuote', projects_path, class: "navbar-brand" %>
+  <% end %>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <!--       <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>-->
+      <% if !logged_in? %>
+      <div class="dropdown">
+        <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+          Login
+        </button>
+        <div id="login-menu" class="dropdown-menu dropdown-menu-right">
+          <h3 class="center">Login</h3>
+          <%= form_for(:session, :html => {class: "px-3 py-3", role: "form" }, url: login_path) do |f| %>
+            <div class="form-group">
+              <%= f.label :email %>
+                <%= f.email_field :email, class: "form-control", placeholder: "Enter your Email", autofocus: true %>
+            </div>
+            <div class="form-group">
+              <%= f.label :password %>
+                <%= f.password_field :password, class: "form-control", placeholder: "Enter your Password", autofocus: true %>
+                  <small id="passwordHelp" class="form-text text-muted">Use at least one letter, one numeral, and seven characters.</small>
+            </div>
+            <div class="form-check">
+              <%= f.check_box :remember, class: "form-check-input" %>
+              <%= f.label :remember_me,'Remember Me?', class: "form-check-label"  %>
+              
+            </div>
+            <div class="center">
+              <%= f.submit "Log In!", class: "btn btn-primary" %>
+            </div>
+             <% end %>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item center" href="#">Forgot password?</a>
+        </div>
+      </div>
+      <% else %>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Hello, <%= current_user.first_name %>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <%= link_to 'View Request(s)', projects_path, class: "dropdown-item" %>
+          <%= link_to 'New Request', new_project_path, class: "dropdown-item" %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'Log out', logout_path, class: "dropdown-item", method: :delete %>
+        </div>
+      </li>
+      <% end %>
+    </ul>
+</nav>

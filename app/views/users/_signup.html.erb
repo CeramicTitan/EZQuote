@@ -1,0 +1,22 @@
+<%= form_for :user, url: signup_path do |f| %>
+  <div class="form-group">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, class: "form-control", placeholder: "Enter Your First Name", autofocus: true %>
+ </div>
+ <div class="form-group">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, class: "form-control", placeholder: "Enter Your Last Name", autofocus: true %>
+ </div>
+ <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: "form-control", placeholder: "Enter A Valid Email", autofocus: true %>
+ </div>
+ <div class="form-group">
+    <%= f.label :password %>
+    <%= f.password_field :password, class: "form-control", placeholder: "Enter A Password", autofocus: true %>
+   <small id="passwordHelp" class="form-text text-muted">Use at least one letter, one numeral, and seven characters.</small>
+ </div>
+<div class="center">
+  <%= f.submit "Sign Up!", class: "btn btn-primary" %>
+</div>
+<% end %>

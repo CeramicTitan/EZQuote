@@ -1,0 +1,10 @@
+<% if logged_in? %>
+  <% if !current_user.projects.any? %>
+    <p>You have no pending project requests.</p>
+  <% else %>
+    <% current_user.projects.each do |project| %>
+    <%= link_to projects_path(project) %>
+    <%= project.status %>
+    <% end %>
+  <% end %>
+<% end %>
