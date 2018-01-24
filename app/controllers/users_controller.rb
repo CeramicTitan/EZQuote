@@ -1,5 +1,13 @@
 class UsersController < ApplicationController
-  def new
+  before_action :require_admin
+  def index
+    @users = User.all
+  end
+  def show
+    @user = User.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
   end
   def create
     @user = User.new(user_params)

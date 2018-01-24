@@ -6,12 +6,13 @@ Rails.application.routes.draw do
    root 'pages#index'
    resources :users
    resources :projects do
-     resources :images, except: [:index]
-     resources :checklist
+     resources :images, only: [:destroy]
+     resource :checklist
    end
    post 'signup', to: 'users#create'
    post 'login', to: 'sessions#create'
    delete 'logout', to: 'sessions#destroy'
+   post 'upload', to: "projects#upload"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

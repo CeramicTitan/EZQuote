@@ -14,27 +14,47 @@
  *= require_self
  */
 
-// @import "font-awesome-sprockets";
-// @import "font-awesome";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 @import "bootstrap";
 .container {
   padding-top: 65px;
+  height: 100%;
 }
-
+#user-actions{
+  padding-bottom: 10px;
+}
+#admin-actions{
+  padding-bottom: 10px;
+}
 .bullet {
   font-size: 2em;
   color: $primary;
   font-weight: bold;
 }
-
+.image-gallery{
+  padding-bottom: 20px;
+}
+.hide{
+}
 .bullet:after {
   content: " ";
 }
-
 .center {
   text-align: center;
 }
-
+.center > .pagination{
+  justify-content:center;
+}
+.right{
+  float:right;
+}
+.image-gallery img{
+  opacity: 0.4;
+}
+.image-gallery img:hover{
+  opacity: 1;
+}
 //Override current bootstrap code.
 .btn-outline-light:not([disabled]):not(.disabled):active,
 .btn-outline-light:not([disabled]):not(.disabled).active,
@@ -57,9 +77,6 @@
     div.table .file-row:nth-child(odd) {
       background: #f9f9f9;
     }
-
-
-
     /* The total progress gets shown by event listeners */
     #total-progress {
       opacity: 0;
@@ -86,14 +103,34 @@
     #previews .file-row.dz-success .delete {
       display: block;
     }
-
-
+#progress-button{
+  display: none;
+}
 #login-menu {
   width: 350px;
 }
-
+#title{
+  padding-bottom: 50px;
+}
 #wrapper {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid $primary;
+}
+.close-icon
+{
+  position: absolute;
+  top: -5px;
+  right: 20px;
+  box-sizing:border-box;
+  width:20px;
+  height:20px;
+  border-width:3px;
+  border-style: solid;
+  border-color:$danger;
+  border-radius:100%;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2); 
+  background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%);
+  background-color:$danger;
+  transition: all 0.3s ease;
 }

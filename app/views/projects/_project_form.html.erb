@@ -1,14 +1,20 @@
+<div class="alert alert-info alert-dismissible fade" role="alert" id="upload-success">
+  <strong>Yay!</strong> The files successfully uploaded and are now being processed. You'll be redirected shortly. <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 <h2>
   Create New Request
 </h2>
-<%= form_for(@project, html: { multipart: true,role: 'form', :id => "fileupload"}, authenticity_token: true) do |f| %>
+<%= form_for(@project, html: { multipart: true, role: 'form', :id => "fileupload"}, authenticity_token: true) do |f| %>
   <div class="form-group">
-    <%= f.label :project_name, "Project Name" %>
-    <%= f.text_field :project_name, class: "form-control", placeholder: "Project Name", autofocus: true %>
+    <%= f.label :name, "Project Name" %>
+    <%= f.text_field :name, class: "form-control", placeholder: "Project Name", autofocus: true %>
  </div>
  <div class="form-group">
-    <%= f.label :project_Description , "Project Description" %>
-    <%= f.text_area :project_description, rows: 10, class: "form-control", placeholder: "Project Description", autofocus: true %>
+    <%= f.label :description , "Project Description" %>
+    <%= f.cktext_area :description, id: 'description',rows: 10, class: "form-control", placeholder: "Project Description", autofocus: true %>
  </div>
  <div class="form-group">
     <%= f.label :link_to_sample_website , "Link To Sample Website"%>
@@ -25,17 +31,13 @@
 
       <div class="col-lg-7">
         <!-- The fileinput-button span is used to style the file input field as button -->
-        <span class="btn btn-success fileinput-button">
-            <i class="glyphicon glyphicon-plus"></i>
+        <span class="btn btn-primary fileinput-button">
+            <i class="fa fa-upload"></i>
             <span>Add files...</span>
         </span>
-        <button type="submit" class="btn btn-primary start">
-            <i class="glyphicon glyphicon-upload"></i>
-            <span>Start upload</span>
-        </button>
-        <button type="reset" class="btn btn-warning cancel">
-            <i class="glyphicon glyphicon-ban-circle"></i>
-            <span>Cancel upload</span>
+        <button type="reset" class="btn btn-danger cancel">
+            <i class="fa fa-refresh"></i>
+            <span>Reset Queue</span>
         </button>
       </div>
 
@@ -75,22 +77,23 @@
             </div>
         </div>
         <div>
-          <button class="btn btn-primary start">
-              <i class="glyphicon glyphicon-upload"></i>
-              <span>Start</span>
-          </button>
           <button data-dz-remove class="btn btn-warning cancel">
               <i class="glyphicon glyphicon-ban-circle"></i>
               <span>Cancel</span>
           </button>
-          <button data-dz-remove class="btn btn-danger delete">
-            <i class="glyphicon glyphicon-trash"></i>
-            <span>Delete</span>
-          </button>
+          <div data-dz-remove>
+            <i class="fa fa-tick"></i>
+            <span>Completed</span>
+          </div>
         </div>
       </div>
-
     </div>
+    <div class="center">
+    <%= button_tag type: 'button', class: "btn btn-success", id: "register-button" do %>
+        Send Request!
+        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+    <% end %>
+  </div>
   <% end%>
     <script>
       // Get the template HTML and remove it from the doument
@@ -100,13 +103,14 @@
       var previewTemplate = previewNode.parentNode.innerHTML;
       previewNode.parentNode.removeChild(previewNode);
       Dropzone.autoDiscover = false;
-      var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-        url: "/projects", // Set the url
+      var myDropzone = new Dropzone(document.getElementById('fileupload'), { // Make the whole body a dropzone
         thumbnailWidth: 80,
         thumbnailHeight: 80,
-        parallelUploads: 20,
+        parallelUploads: 10,
+        maxFiles: 10,
+        uploadMultiple: true,
         previewTemplate: previewTemplate,
-        paramName: "project[images]",
+        paramName: "images",
         params:{
           'authenticity_token':  AUTH_TOKEN
         },
@@ -114,34 +118,41 @@
         previewsContainer: "#previews", // Define the container to display the previews
         clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
       });
-
-      myDropzone.on("addedfile", function(file) {
-        // Hookup the start button
-        file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
-      });
-
+      
       // Update the total progress bar
-      myDropzone.on("totaluploadprogress", function(progress) {
+      myDropzone.on("totaluploadprogress", function(progress, totalBytes, totalBytesSent) {
         document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
       });
 
-      myDropzone.on("sending", function(file) {
+      myDropzone.on("sendingmultiple", function(data, xhr, formData) {
         // Show the total progress bar when upload starts
         document.querySelector("#total-progress").style.opacity = "1";
-        // And disable the start button
-        file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+           for (instance in CKEDITOR.instances) {
+             CKEDITOR.instances[instance].updateElement();
+          }
+        formData.append('description',  $("#description").val());
       });
-
+      myDropzone.on("processingmultiple", function(file){
+        document.querySelector('#register-button').style.display = 'none';
+        $('#upload-success').addClass('show');
+        $('html,body').scrollTop(0);
+      });
       // Hide the total progress bar when nothing's uploading anymore
       myDropzone.on("queuecomplete", function(progress) {
         document.querySelector("#total-progress").style.opacity = "0";
       });
-
+      myDropzone.on("successmultiple", function(file, response){
+        window.location.href = "/projects/"+response.id
+      });
       // Setup the buttons for all transfers
       // The "add files" button doesn't need to be setup because the config
       // `clickable` has already been specified.
-      document.querySelector("#actions .start").onclick = function() {
+      document.querySelector("#register-button").onclick = function() {
         myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+        if(myDropzone.getQueuedFiles().length > 0){
+        }else{
+          $('#fileupload').submit();
+        }
       };
       document.querySelector("#actions .cancel").onclick = function() {
         myDropzone.removeAllFiles(true);

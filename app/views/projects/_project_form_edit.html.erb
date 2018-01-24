@@ -1,0 +1,31 @@
+<h2>
+  Edit Request for <%= @project.name %>
+</h2>
+<%= form_for(@project, html: { multipart: true, role: 'form', :id => "fileupload"}, authenticity_token: true) do |f| %>
+  <div class="form-group">
+    <%= f.label :name, "Project Name" %>
+    <%= f.text_field :name, class: "form-control", placeholder: "Project Name", autofocus: true %>
+ </div>
+ <div class="form-group">
+    <%= f.label :description , "Project Description" %>
+    <%= f.cktext_area :description, id: 'description',rows: 10, class: "form-control", placeholder: "Project Description", autofocus: true %>
+ </div>
+ <div class="form-group">
+    <%= f.label :link_to_sample_website , "Link To Sample Website"%>
+    <%= f.text_field :link_to_sample, class: "form-control", placeholder: "Link To Sample Website", autofocus: true %>
+ </div>
+ <div class="form-group">
+    <%= f.label :Budget %>
+    <%= f.number_field :budget, placeholder: "Budget",class: "form-control", autofocus: true %>
+ </div>
+<div class="center">
+    <%= button_tag type: 'submit', class: "btn btn-success", id: "register-button" do %>
+        Edit Request!
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+    <% end %>
+  <div class="cancel">
+    | <%= link_to 'cancel', project_path(@project) %> |
+  </div>
+  </div>
+  
+<% end %>

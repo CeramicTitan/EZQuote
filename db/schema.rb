@@ -11,9 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180108034142) do
+ActiveRecord::Schema.define(version: 20180124042849) do
 
-  create_table "images", force: true do |t|
+  create_table "checklist_items", force: :cascade do |t|
+    t.integer  "checklist_id"
+    t.string   "name"
+    t.boolean  "complete",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "checklists", force: :cascade do |t|
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "images", force: :cascade do |t|
     t.string   "project_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -23,9 +37,9 @@ ActiveRecord::Schema.define(version: 20180108034142) do
     t.datetime "updated_at"
   end
 
-  create_table "projects", force: true do |t|
-    t.string   "project_name"
-    t.string   "project_description"
+  create_table "projects", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -37,7 +51,7 @@ ActiveRecord::Schema.define(version: 20180108034142) do
     t.datetime "image_updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "first_name"
@@ -45,6 +59,7 @@ ActiveRecord::Schema.define(version: 20180108034142) do
     t.string   "email"
     t.boolean  "admin",           default: false
     t.string   "password_digest"
+    t.boolean  "role_master",     default: false
   end
 
 end

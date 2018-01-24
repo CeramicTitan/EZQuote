@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def index
+    reset_session
     set_new_homepage
   end
   

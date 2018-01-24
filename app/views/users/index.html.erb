@@ -1,0 +1,19 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">View</th>
+    </tr>
+  </thead>
+  <tbody>
+   <%  @users.each do |user| %>
+    <tr>
+      <td><%= user.first_name.capitalize + " " + user.last_name.capitalize %></td>
+      <td><%= user.email %></td>
+      <td><%= link_to '<i class="fa fa-eye fa-lg"></i>'.html_safe, user_path(user), :remote => true, "data-toggle" => "modal", "data-target" => "#exampleModal", style: "color:black" %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= render 'modal' %>

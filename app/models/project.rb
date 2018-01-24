@@ -1,7 +1,8 @@
 class Project < ActiveRecord::Base
   has_many :images, :dependent => :destroy
+  has_one :checklist 
   belongs_to :user
-  validates :project_name, presence: true
-  validates :project_description, presence: true
+  validates :name, presence: true
+  validates :description, presence: true
   validates :budget, presence: true
 end

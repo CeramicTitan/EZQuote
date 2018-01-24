@@ -2,10 +2,11 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.4'
+gem 'rails', '~> 4.2', '>= 4.2.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
+gem 'ckeditor'
 gem 'dropzonejs-rails'
 gem 'sass', '~> 3.4', '>= 3.4.22'
 gem 'bootstrap', '~> 4.0.0.beta3'
@@ -34,11 +35,13 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
 # gem 'unicorn'
+gem 'will_paginate'
 
+gem 'will_paginate-bootstrap4', '~> 0.1.3'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem "paperclip", "~> 4.2"
+gem 'paperclip', '~> 5.1'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 

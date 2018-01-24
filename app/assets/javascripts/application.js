@@ -16,4 +16,5 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require dropzone
+//= require ckeditor/init
 //= require_tree .

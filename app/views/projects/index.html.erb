@@ -2,9 +2,21 @@
   <% if !current_user.projects.any? %>
     <p>You have no pending project requests.</p>
   <% else %>
-    <% current_user.projects.each do |project| %>
-    <%= link_to projects_path(project) %>
-    <%= project.status %>
+  <div class="center">
+    <%= will_paginate @projects%>
+   </div>  
+    <% @projects.each do |project| %>
+      <div>
+          <h1>
+            <%= link_to project.name, project_path(project)%>
+          </h1>
+            <div class="progress">
+              <div class="progress-bar bg-warning" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+          </div>
+          <div class="actions right">
+            <%= link_to 'View status', project_checklist_path(project) %>
+          </div>
+      </div>
     <% end %>
   <% end %>
 <% end %>
