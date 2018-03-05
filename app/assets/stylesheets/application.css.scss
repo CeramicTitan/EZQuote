@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require devise_bootstrap_views
  *= require dropzone/dropzone
  *= require_self
  */
@@ -17,8 +18,51 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "bootstrap";
+.icon{
+  position: absolute;
+  top: 30%;
+  right: 1em;
+  font-size: 1.5em;
+}
+.subject:not(:first-child){
+  font-size: 20px;
+}
+.client{
+  font-size: 15px;
+}
+.card-container .card{
+  margin-bottom: 10px;
+}
+.read-receipt{
+  padding: 0;
+}
+.card-content{
+  padding: 10px;
+}
+.wrapper{
+  margin-top: 50px;
+}
+.button-container{
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  
+}
+.btn-info:visited{
+  color: white;
+}
+.list-group-item {
+  display: flex;
+  align-items: center;
+}
+.list-group-item .text {
+  flex: 1;
+}
+.list-group-item .badge {
+  flex: 0 0 auto;
+}
 .container {
-  padding-top: 65px;
+  margin-top:20px;
   height: 100%;
 }
 #user-actions{
@@ -134,3 +178,31 @@
   background-color:$danger;
   transition: all 0.3s ease;
 }
+/*flash*/
+.alert-error {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+    text-align: left;
+ }
+
+.alert-alert {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+    text-align: left;
+ }
+
+.alert-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #468847;
+    text-align: left;
+ }
+
+.alert-notice {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #468847;
+    text-align: left;
+ }

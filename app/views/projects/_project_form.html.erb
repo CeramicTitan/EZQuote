@@ -4,7 +4,7 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<h2>
+<h2 id="form-title">
   Create New Request
 </h2>
 <%= form_for(@project, html: { multipart: true, role: 'form', :id => "fileupload"}, authenticity_token: true) do |f| %>

@@ -1,0 +1,22 @@
+<h3>
+   Conversations
+</h3>
+ <div class="card-container">
+    <% @conversations.each do |conversation|  %>
+    <% if !conversation.recipient_id.nil? %>
+      <div class="card">
+        <div class="card-content">
+          <div class="subject"><%= conversation.subject %>
+             <% if conversation.messages.where.not(:user_id => current_user.id).where(:read => false).any? %>
+              <span class="badge badge-pill badge-danger">New</span>
+             <% end %>
+          </div>
+          <div class="client">Client: <%= User.find(conversation.recipient_id).get_name %></div>
+          <%= link_to conversation_messages_path(conversation), class: "icon" do%>
+            <i class="fa fa-external-link fa-1x"></i>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+ </div>

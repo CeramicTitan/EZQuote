@@ -1,0 +1,13 @@
+<%= form_for(@checklist_item, url: project_checklist_checklist_items_path) do |f| %>
+
+  <ul class="errors"></ul>
+
+  <div class="form-group">
+    <%= f.label :description, class:"control-label" %>
+      <%= f.text_field :description, class: "form-control" %>
+  </div>
+     <div class="pull-right">
+      <%= f.submit 'Save Item', class: "btn btn-primary" %>
+      <%= link_to "Cancel", "#", class: "btn", data: {dismiss: "modal"} %>
+    </div>  
+<% end %>

@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
-  before_action :require_admin
+  before_action :require_admin, only:[:index, :show]
+  def set_admin
+    @user = User.find(params[:id])
+    @user.toggle!(:admin)
+  end
   def index
     @users = User.all
   end
@@ -9,10 +13,13 @@ class UsersController < ApplicationController
       format.js
     end
   end
+  def edit
+    @user = User.find(params[:id])
+  end
   def create
     @user = User.new(user_params)
      if @user.save
-      redirect_to project_path(@user)
+      redirect_to projects_path
     else
       render 'pages/index'
     end

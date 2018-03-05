@@ -1,18 +1,27 @@
 Rails.application.routes.draw do
+  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
    root 'pages#index'
-   resources :users
    resources :projects do
      resources :images, only: [:destroy]
-     resource :checklist
+     resource :checklist do 
+       resources :checklist_items
+     end
    end
-   post 'signup', to: 'users#create'
-   post 'login', to: 'sessions#create'
-   delete 'logout', to: 'sessions#destroy'
-   post 'upload', to: "projects#upload"
+  resources :conversations do
+    resources :messages
+  end
+  post 'upload', to: "projects#upload"
+  
+  get 'projects/:project_id/checklist/:id/complete' => 'checklist_items#change_status', :as => 'change_status'
+  get 'users/:id/admin' => 'users#set_admin', as: 'set_admin'
+  get 'projects/:id/status' => 'projects#change_status', as: 'set_status'
+  get 'users'=> 'users#index'
+  get 'user/:id' => 'users#show', as: 'user_show'
+  
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

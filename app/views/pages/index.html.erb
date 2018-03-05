@@ -1,24 +1,26 @@
-<div class="row">
-    <div class="col-sm-6 offset-md-1">
-      <h4>Welcome to EZQuote!</h4>
-      <p>
-        EZQuote is a quote and project management system, that allows me to assess the amount of work in your projects and allows me to deliver an affordable quote and a timely deadline. EZQuote also allows you to track the status of the project with and easy to use and follow project tracker.
-      </p>
-      <h5>How to use EZQuote:</h5>
-      <p>
-        <span class="bullet">1.</span><span>Simply create an account on the right hand side or the upper right hand corner. If you already have an account, <a href="#">Click here</a> to login in.</span>
-      </p>
-      <p>
-        <span class="bullet">2.</span><span>Once logged in, you can submit a new project request, where you can upload a description and list features required within the website. You are also able to upload images to demonstrate the feel and design you are after.</span>
-      </p>
-      <p>
-        <span class="bullet">3.</span><span>After the request has been sent, it will take a few days(~3 days) for me to evaluate a quote and timeframe for the amount of work required. You will recieve an email with the outcome of my decision and any comments/questions I have regarding the site.</span>
-      </p>
-    </div>
-  <div class="col-sm-4">
-  <div id="wrapper">
-    <h4 id="signup-header" class="center">Sign Up</h4>
-      <%= render 'users/signup' %>
+<div class="wrapper">
+  <div class="row">
+      <div class="col-sm-6 offset-md-1">
+        <h4>Welcome to EZQuote!</h4>
+        <p>
+          EZQuote is a quote and project management system, that allows me to assess the amount of work in your projects and allows me to deliver an affordable quote and a timely deadline. EZQuote also allows you to track the status of the project with and easy to use and follow project tracker.
+        </p>
+        <h5>How to use EZQuote:</h5>
+        <p>
+          <span class="bullet">1.</span><span>Simply create an account on the right hand side. If you already have an account, <%= link_to "Click here", new_user_session_path %> or the upper right hand corner to login in.</span>
+        </p>
+        <p>
+          <span class="bullet">2.</span><span>Once logged in, you can submit a new project request, where you can upload a description and list features required within the website. You are also able to upload images to demonstrate the feel and design you are after.</span>
+        </p>
+        <p>
+          <span class="bullet">3.</span><span>After the request has been sent, it will take a few days(~3 days) for me to evaluate a quote and timeframe for the amount of work required. You will recieve an email with the outcome of my decision and any comments/questions I have regarding the site.</span>
+        </p>
+      </div>
+    <div class="col-sm-4">
+    <div id="wrapper">
+      <h4 id="signup-header" class="center">Sign Up</h4>
+        <%= render 'users/signup' %>
+      </div>
     </div>
   </div>
 </div>

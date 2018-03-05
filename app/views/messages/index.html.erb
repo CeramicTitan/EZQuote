@@ -1,0 +1,40 @@
+<div class="center">
+    <%= will_paginate @messages%>
+   </div> 
+<% @messages.each do |message| %>
+  <% if !message.user_id.nil? %>
+  <% if message.user_id == current_user.id %>
+    <div class="card border-primary mb-3">
+      <div class="card-header"><strong><%= User.find(message.user_id).get_name %></strong></div>
+      <div class="card-body text-dark">
+        <p class="card-text"><%= message.body %></p>
+        <% if message.read? %>
+          <p class="card-text right read-receipt">Seen</p>
+        <% end %>
+      </div>
+    </div>
+    <% else %>
+       <div class="card border-warning mb-3">
+        <div class="card-header"><strong><%=  User.find(message.user_id).get_name %></strong></div>
+        <div class="card-body text-dark">
+          <p class="card-text"><%= message.body %></p>
+          <% if message.read? %>
+            <p class="card-text right">Seen</p>
+        <% end %>
+        </div>
+    </div>
+  <% end %>
+<% end %>
+<% end %>
+
+<%= form_for(@message, url: conversation_messages_path, html: {class: "form"}) do |f| %>
+ <div class=”form-group”>
+   <%= f.text_area :body, class: "form-control", placeholder: "Add your reply..."%>
+ </div>
+ <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
+ <div class="right" style="margin-top: 10px;">
+  <%= button_tag type: 'submit', class: "btn btn-primary" do %>
+        <i class="fa fa-paper-plane" aria-hidden="true"></i> Add Reply
+    <% end %>
+ </div>
+<% end %>

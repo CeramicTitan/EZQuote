@@ -1,12 +1,13 @@
 class PagesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index]
   def index
-    reset_session
+    @user = User.new
     set_new_homepage
   end
   
   private
   def set_new_homepage
-    if logged_in?
+    if user_signed_in?
       redirect_to projects_path
     end
   end
